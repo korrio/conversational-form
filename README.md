@@ -1,5 +1,4 @@
 ## Conversational UI with 3d gauge
-===============
 
 This repo is a combination from 2 libs which are
 * d3 gauge : http://bl.ocks.org/msqr/3202712
