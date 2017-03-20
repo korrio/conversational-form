@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+		<title>Turning web forms into conversations</title>
+
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+
+		<link rel="stylesheet" href="build/conversational-form-docs.min.css">
+		<link rel="icon" href="images/favicon.ico">
+
+		<script type="text/javascript" src="http://d3js.org/d3.v2.min.js"></script>
+	<style>
+	#conversational-form-docs section[role=info] {
+		padding: 0px;
+	}
+	.container {
+		width: 50%;
+	}
+	#power-gauge {
+		width: 300px;
+		height: 600px;
+		margin: auto;
+		display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+	}
+
+	#power-gauge g.arc {
+		fill: steelblue;
+	}
+
+	#power-gauge g.pointer {
+		fill: #e85116;
+		stroke: #b64011;
+	}
+	
+	#power-gauge g.label text {
+		text-anchor: middle;
+		font-size: 14px;
+		font-weight: bold;
+		fill: #666;
+	}
+	</style>
+
+	</head>
+
+	<body>
+		<!-- <script type="text/javascript" src="../dist/conversational-form.min.js" crossorigin></script>
+		<link rel="stylesheet" href="../dist/conversational-form.min.css"> -->
+
+		<!-- Load Conversational Form (v9.1.0) -->
+		<script type="text/javascript" src="https://conversational-form-091-0iznjsw.stackpathdns.com/conversational-form.min.js" crossorigin></script>
+
+		<!-- Load docs -->
+		<script src="build/cf/ConversationalFormDocs.js"></script>
+
+		<main id="conversational-form-docs" role="conversation">
+			<menu id="small-screen-menu">
+				<h2>Conversational Form</h2>
+
+				<div class="switch-btn">
+					<label class="switch">
+						<input type="checkbox" onclick="window.conversationalFormDocs.toggleConversation(event)">
+						<div class="slider round"></div>
+					</label>
+				</div>
+
+				<div class="hamburger-btn" onclick="window.conversationalFormDocs.toggleMenuState(event)">
+					<svg viewBox="0 0 29 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+							<g transform="translate(-325.000000, -87.000000)" stroke="#FFFFFF" stroke-width="2">
+								<g transform="translate(325.000000, 87.000000)">
+									<path d="M27.4802431,7 L1.23827993,7"></path>
+									<path d="M27.4802431,1 L1.23827993,1"></path>
+									<path d="M27.4802431,13 L1.23827993,13"></path>
+								</g>
+							</g>
+						</g>
+					</svg>
+				</div>
+			</menu>
+
+			<div class="switch-btn" id="cf-toggle-btn" data-label="Enable Conversational Form" data-label-toggled="Disable Conversational Form">
+				<label class="switch">
+					<input type="checkbox" onclick="window.conversationalFormDocs.toggleConversation(event)">
+					<div class="slider round"></div>
+				</label>
+			</div>
+
+			<section id="info" role="info">
+				<div class="close-btn" onclick="window.conversationalFormDocs.toggleMenuState()">
+					<svg viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+							<g transform="translate(-328.000000, -83.000000)" stroke="#FFFFFF" stroke-width="2">
+								<g id="close" transform="translate(329.000000, 84.000000)">
+									<path d="M19.6371966,19.2779351 L1.08132646,0.722064927"></path>
+									<path d="M19.4923318,0.722064927 L0.936461672,19.2779351"></path>
+								</g>
+							</g>
+						</g>
+					</svg>
+				</div>
+
+				<h3 style="display:none;">
+					Conversational Form is licensed under <a href="https://github.com/space10-community/conversational-form/blob/master/LICENSE.md" target="_blank">MIT</a>,
+					</br>documentation under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+					</br>Development by <a href="http://rwatgg.com/" target="_blank">Felix Nielsen, RWATGG</a>.
+					</br>Design by <a href="http://www.charlieisslander.com/" target="_blank">Charlie Isslander</a> and <a href="http://norgram.co/" target="_blank">Norgram®</a>.
+
+					</br></br>Concept by <a href="http://space10.io/" target="_blank">SPACE10</a>.
+				</h3>
+
+				<article>
+	
+					<h1 id="writer" style="display:none;">
+						HHSG conversations.
+					</h1>
+					<h2 style="display:none;">
+						Conversational Form is an open-source concept by <a href="http://space10.io/" target="_blank">SPACE10</a> to easily turn any form element on a web page into a conversational form interface.
+					</h2>
+
+
+					<div class="github-button__outer" style="display:none">
+						<a class="github-button" 
+							href="https://github.com/space10-community/conversational-form/fork" 
+							data-style="mega" 
+							data-count-href="/space10-community/conversational-form/network" 
+							data-count-api="/repos/space10-community/conversational-form#forks_count" 
+							data-count-aria-label="# forks on GitHub" 
+							aria-label="Fork space10-community/conversational-form on GitHub">Fork</a>
+						</a>
+
+						<a class="github-button" 
+							href="https://github.com/space10-community/conversational-form" 
+							data-style="mega" 
+							data-count-href="/space10-community/conversational-form/stargazers" 
+							data-count-api="/repos/space10-community/conversational-form#stargazers_count" 
+							data-count-aria-label="# stargazers on GitHub" a
+							ria-label="Star space10-community/conversational-form on GitHub">Star</a>
+					</div>
+					
+					<footer style="display:none;">
+						<h3>
+							<a href="https://medium.com/conversational-interfaces/introducing-the-conversational-form-c3166eb2ee2f#.yq5axcfcq" target="_blank">Why we built Conversational Form</a>
+						</h3>
+					
+					</footer>
+				</article>
+				<div class="container">
+					<div id="power-gauge"></div>
+				</div>
+			</section>
+
+			<section id="form" role="form">
+				<form id="cf-form" cf-prevent-autofocus method="post" action="https://api.formbucket.com/f/buk_YR7xGobkQQBP0bmXAWXtxn1B">
+					<fieldset>
+						<label for="name">What's your name?</label>
+						<input required cf-questions="Hi there! What's your name? 😊" type="text" class="form-control" name="name" id="name">
+					</fieldset>
+
+					<fieldset>
+						<label for="occupation">Occupation</label>
+						<div class="radio">
+						<label>
+							<input cf-questions="Great to meet you, {previous-answer}! I'm a web form, what do you do?|Awesome, {previous-answer}! And what do you do?" type="radio" name="occupation" id="occupation-1" value="developer">
+							Developer
+						</label>
+						</div>
+						<div class="radio">
+						<label>
+							<input type="radio" name="occupation" id="occupation-2" value="designer">
+							Designer
+						</label>
+						</div>
+						<div class="radio">
+						<label>
+							<input type="radio" name="occupation" id="occupation-3" value="curious-mind">
+							Curious mind
+						</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="occupation" id="occupation-2" value="lost">
+								Lost cause
+							</label>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<label for="company">Company</label>
+						<input cf-questions="Which company are you with?" type="text" class="form-control" name="company" id="company">
+					</fieldset>
+
+					<fieldset>
+						<label for="opinion">Will conversational interfaces be everywhere?</label>
+						<select cf-questions="Do you think conversational forms will replace web forms in the future?" name="opinion" id="opinion" class="form-control">
+							<option></option>
+							<option>Definitely</option>
+							<option>Maybe</option>
+							<option>No</option>
+						</select>
+					</fieldset>
+
+					<fieldset>
+						<label for="email">Email</label>
+						<input pattern=".+\@.+\..+" cf-error="E-mail not correct" cf-questions="If you want to stay updated on conversational interfaces from SPACE10, please give me your email." type="email" class="form-control" name="email" id="your-email">
+					</fieldset>
+
+					<fieldset>
+						<label for="thats-all">Are you ready to submit the form?</label>
+						<select cf-questions="Are you ready to submit the form?" name="submit-form" id="submit-form" class="form-control">
+							<option></option>
+							<option>Yup</option>
+						</select>
+					</fieldset>
+
+					<fieldset>
+						<label for="thats-all">Want to start over?</label>
+						<select cf-questions="Want to start over?" name="repeat" id="repeat" class="form-control">
+							<option></option>
+							<option>Yes, let's go again</option>
+						</select>
+					</fieldset>
+
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</section>
+
+			<section id="cf-context" role="cf-context" cf-context>
+				
+			</section>
+		</main>
+
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+		<script>
+var gauge = function(container, configuration) {
+	var that = {};
+	var config = {
+		size						: 200,
+		clipWidth					: 200,
+		clipHeight					: 110,
+		ringInset					: 20,
+		ringWidth					: 20,
+		
+		pointerWidth				: 10,
+		pointerTailLength			: 5,
+		pointerHeadLengthPercent	: 0.9,
+		
+		minValue					: 0,
+		maxValue					: 10,
+		
+		minAngle					: -90,
+		maxAngle					: 90,
+		
+		transitionMs				: 750,
+		
+		majorTicks					: 5,
+		labelFormat					: d3.format(',g'),
+		labelInset					: 10,
+		
+		arcColorFn					: d3.interpolateHsl(d3.rgb('#e8e2ca'), d3.rgb('#3e6c0a'))
+	};
+	var range = undefined;
+	var r = undefined;
+	var pointerHeadLength = undefined;
+	var value = 0;
+	
+	var svg = undefined;
+	var arc = undefined;
+	var scale = undefined;
+	var ticks = undefined;
+	var tickData = undefined;
+	var pointer = undefined;
+
+	var donut = d3.layout.pie();
+	
+	function deg2rad(deg) {
+		return deg * Math.PI / 180;
+	}
+	
+	function newAngle(d) {
+		var ratio = scale(d);
+		var newAngle = config.minAngle + (ratio * range);
+		return newAngle;
+	}
+	
+	function configure(configuration) {
+		var prop = undefined;
+		for ( prop in configuration ) {
+			config[prop] = configuration[prop];
+		}
+		
+		range = config.maxAngle - config.minAngle;
+		r = config.size / 2;
+		pointerHeadLength = Math.round(r * config.pointerHeadLengthPercent);
+
+		// a linear scale that maps domain values to a percent from 0..1
+		scale = d3.scale.linear()
+			.range([0,1])
+			.domain([config.minValue, config.maxValue]);
+			
+		ticks = scale.ticks(config.majorTicks);
+		tickData = d3.range(config.majorTicks).map(function() {return 1/config.majorTicks;});
+		
+		arc = d3.svg.arc()
+			.innerRadius(r - config.ringWidth - config.ringInset)
+			.outerRadius(r - config.ringInset)
+			.startAngle(function(d, i) {
+				var ratio = d * i;
+				return deg2rad(config.minAngle + (ratio * range));
+			})
+			.endAngle(function(d, i) {
+				var ratio = d * (i+1);
+				return deg2rad(config.minAngle + (ratio * range));
+			});
+	}
+	that.configure = configure;
+	
+	function centerTranslation() {
+		return 'translate('+r +','+ r +')';
+	}
+	
+	function isRendered() {
+		return (svg !== undefined);
+	}
+	that.isRendered = isRendered;
+	
+	function render(newValue) {
+		svg = d3.select(container)
+			.append('svg:svg')
+				.attr('class', 'gauge')
+				.attr('width', config.clipWidth)
+				.attr('height', config.clipHeight);
+		
+		var centerTx = centerTranslation();
+		
+		var arcs = svg.append('g')
+				.attr('class', 'arc')
+				.attr('transform', centerTx);
+		
+		arcs.selectAll('path')
+				.data(tickData)
+			.enter().append('path')
+				.attr('fill', function(d, i) {
+					return config.arcColorFn(d * i);
+				})
+				.attr('d', arc);
+		
+		var lg = svg.append('g')
+				.attr('class', 'label')
+				.attr('transform', centerTx);
+		lg.selectAll('text')
+				.data(ticks)
+			.enter().append('text')
+				.attr('transform', function(d) {
+					var ratio = scale(d);
+					var newAngle = config.minAngle + (ratio * range);
+					return 'rotate(' +newAngle +') translate(0,' +(config.labelInset - r) +')';
+				})
+				.text(config.labelFormat);
+
+		var lineData = [ [config.pointerWidth / 2, 0], 
+						[0, -pointerHeadLength],
+						[-(config.pointerWidth / 2), 0],
+						[0, config.pointerTailLength],
+						[config.pointerWidth / 2, 0] ];
+		var pointerLine = d3.svg.line().interpolate('monotone');
+		var pg = svg.append('g').data([lineData])
+				.attr('class', 'pointer')
+				.attr('transform', centerTx);
+				
+		pointer = pg.append('path')
+			.attr('d', pointerLine/*function(d) { return pointerLine(d) +'Z';}*/ )
+			.attr('transform', 'rotate(' +config.minAngle +')');
+			
+		update(newValue === undefined ? 0 : newValue);
+	}
+	that.render = render;
+	
+	function update(newValue, newConfiguration) {
+		if ( newConfiguration  !== undefined) {
+			configure(newConfiguration);
+		}
+		var ratio = scale(newValue);
+		var newAngle = config.minAngle + (ratio * range);
+		pointer.transition()
+			.duration(config.transitionMs)
+			.ease('elastic')
+			.attr('transform', 'rotate(' +newAngle +')');
+	}
+	that.update = update;
+
+	configure(configuration);
+	
+	return that;
+};
+</script>
+
+<script>
+function updateGaugeRandom() {
+	powerGauge.update(Math.random() * 10);
+}
+var powerGauge;
+function onDocumentReady() {
+	powerGauge = gauge('#power-gauge', {
+		size: 300,
+		clipWidth: 300,
+		clipHeight: 300,
+		ringWidth: 60,
+		maxValue: 10,
+		transitionMs: 4000,
+	});
+	powerGauge.render();
+	
+	function updateReadings() {
+		// just pump in random data here...
+		powerGauge.update(Math.random() * 10);
+	  setTimeout(function(){
+    //do what you need here
+    powerGauge.update(0);
+		}, 4000);
+		
+	}
+	
+	// every few seconds update reading values
+	updateReadings();
+	// setInterval(function() {
+	// 	updateReadings();
+	// }, 5 * 1000);
+}
+
+if ( !window.isLoaded ) {
+	window.addEventListener("load", function() {
+		onDocumentReady();
+	}, false);
+} else {
+	onDocumentReady();
+}
+</script>
+
+	</body>
+
+
+<!-- Mirrored from space10-community.github.io/conversational-form/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Mar 2017 11:03:32 GMT -->
+</html>
